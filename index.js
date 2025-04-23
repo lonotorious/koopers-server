@@ -48,3 +48,17 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("✅ Serveur prêt sur le port " + PORT);
 });
+
+app.post("/updateLocation", (req, res) => {
+    console.log("📡 Reçu /updateLocation :", req.body); // 👈 AJOUTE CETTE LIGNE
+
+    const { userId, latitude, longitude } = req.body;
+
+    if (!userId || !latitude || !longitude) {
+        return res.status(400).json({ error: "Champs manquants" });
+    }
+
+    userLocations[userId] = { latitude, longitude };
+    res.json({ success: true });
+});
+
